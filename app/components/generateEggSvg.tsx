@@ -1,6 +1,6 @@
 //components/generateEggSvg
 
-export default function generateAnimatedEggSvg(
+export default function GenerateAnimatedEggSvg(
   color: string = "blue",
   height?: string,
   text?: string
