@@ -35,7 +35,6 @@ export default function SvgRequest() {
       const { url } = await response.json();
       setSvgUrl(url);
     }
-    console.log(svgUrl);
   };
 
   const generateUrl = () => {
