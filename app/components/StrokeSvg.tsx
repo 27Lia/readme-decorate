@@ -1,14 +1,15 @@
 export default function StrokeSvg(
-  fontColor: string = "",
-  backgroundColor: string = "",
+  width: string = "",
   height: string = "",
+  backgroundColor: string = "",
+  fontColor: string = "",
   text: string = "",
   fontSize: string = ""
 ): string {
   const textLength = text.length * 20;
 
   const svg = `
-    <svg width="100%" height="${height}" xmlns="http://www.w3.org/2000/svg">
+    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
       <style>
         .text-ani {
           fill: none;

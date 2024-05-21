@@ -1,9 +1,10 @@
 export default function GradientSvg(
-  fontColor: string = "",
+  width: string = "",
+  height: string = "",
   gradientColors: string[] = ["", ""],
-  height: string = "200",
+  fontColor: string = "",
   text: string = "",
-  fontSize: string = "20"
+  fontSize: string = ""
 ): string {
   const gradientStops = gradientColors
     .map(
@@ -13,7 +14,7 @@ export default function GradientSvg(
     .join("");
 
   const svg = `
-      <svg width="100%" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
             ${gradientStops}

@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function SvgRequest() {
   const [height, setHeight] = useState("250");
+  const [width, setWidth] = useState("");
   const [text, setText] = useState("문구입력");
   const [fontColor, setFontColor] = useState("#000000");
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
@@ -22,6 +23,7 @@ export default function SvgRequest() {
       },
       body: JSON.stringify({
         height,
+        width,
         text,
         fontColor,
         backgroundColor,
@@ -41,6 +43,7 @@ export default function SvgRequest() {
     const baseUrl = window.location.origin;
     const query = new URLSearchParams({
       height,
+      width,
       text,
       fontColor,
       backgroundColor,
@@ -68,6 +71,18 @@ export default function SvgRequest() {
               placeholder="Enter height"
             />
           </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700">Width:</label>
+            <input
+              type="number"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter width"
+            />
+          </div>
+
           <div className="mb-4">
             <label className="block text-gray-700">Text:</label>
             <input
@@ -205,7 +220,11 @@ export default function SvgRequest() {
       {svgUrl && (
         <div className="mt-4 p-4 bg-gray-100 rounded-lg">
           <h2 className="text-lg font-semibold">Generated SVG:</h2>
-          <img src={svgUrl} alt="Generated SVG" className="custom-width" />
+          <img
+            src={svgUrl}
+            alt="Generated SVG"
+            style={{ width: `${width}px` }}
+          />
         </div>
       )}
     </div>
