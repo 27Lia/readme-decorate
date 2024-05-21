@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SVG Generator
 
-## Getting Started
+SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 맞춤형 SVG 이미지를 생성해주는 웹 애플리케이션입니다. 웹 디자이너, 개발자, 마케터 등 다양한 사용자가 손쉽게 원하는 SVG 이미지를 생성하고 공유할 수 있습니다.
 
-First, run the development server:
+## 주요 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **SVG 이미지 생성:** 텍스트, 글자 색상, 배경 색상, 글자 크기 등을 설정하여 맞춤형 SVG 이미지를 생성할 수 있습니다.
+- **다양한 스타일 지원:** 사각형(Rectangle), 스트로크(Stroke), 그라디언트(Gradient) 등 다양한 스타일을 적용할 수 있습니다.
+- **실시간 미리보기:** 입력한 값에 따라 실시간으로 SVG 이미지를 미리 볼 수 있습니다.
+- **URL 생성 및 공유:** 생성된 SVG 이미지의 URL을 생성하여 쉽게 공유할 수 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 사용 방법
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **높이 설정:** SVG 이미지의 높이를 입력합니다.
+2. **텍스트 입력:** 이미지에 표시할 문구를 입력합니다.
+3. **글자 색상 선택:** 텍스트의 색상을 선택합니다.
+4. **배경 색상 선택:** 이미지의 배경 색상을 선택합니다.
+5. **글자 크기 설정:** 텍스트의 크기를 입력합니다.
+6. **스타일 선택:** 이미지의 스타일을 선택합니다 (사각형, 스트로크, 그라디언트).
+7. **그라디언트 색상 설정:** 그라디언트 스타일을 선택한 경우, 두 가지 그라디언트 색상을 설정합니다.
+8. **SVG 생성:** 'Generate SVG' 버튼을 눌러 SVG 이미지를 생성합니다.
+9. **URL 생성:** 'Generate URL' 버튼을 눌러 생성된 SVG 이미지의 URL을 만듭니다.
