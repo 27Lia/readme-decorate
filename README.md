@@ -20,3 +20,30 @@ SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 �
 7. **그라디언트 색상 설정:** 그라디언트 스타일을 선택한 경우, 두 가지 그라디언트 색상을 설정합니다.
 8. **SVG 생성:** 'Generate SVG' 버튼을 눌러 SVG 이미지를 생성합니다.
 9. **URL 생성:** 'Generate URL' 버튼을 눌러 생성된 SVG 이미지의 URL을 만듭니다.
+
+---
+
+## English Version
+
+# SVG Generator
+
+SVG Generator is a web application that generates custom SVG images based on various parameters input by the user. It allows web designers, developers, marketers, and others to easily create and share the SVG images they need.
+
+## Key Features
+
+- **SVG Image Generation:** Customize text, font color, background color, font size, and more to generate tailored SVG images.
+- **Support for Various Styles:** Apply different styles such as Rectangle, Stroke, and Gradient.
+- **Real-Time Preview:** View the SVG image in real-time as you input the parameters.
+- **URL Generation and Sharing:** Generate a URL for the created SVG image for easy sharing.
+
+## How to Use
+
+1. **Set Height:** Enter the height of the SVG image.
+2. **Enter Text:** Input the text to be displayed on the image.
+3. **Choose Font Color:** Select the color for the text.
+4. **Choose Background Color:** Select the background color for the image.
+5. **Set Font Size:** Enter the size of the text.
+6. **Choose Style:** Select the style of the image (Rectangle, Stroke, Gradient).
+7. **Set Gradient Colors:** If the Gradient style is selected, set the two gradient colors.
+8. **Generate SVG:** Click the 'Generate SVG' button to create the SVG image.
+9. **Generate URL:** Click the 'Generate URL' button to create a URL for the generated SVG image.
