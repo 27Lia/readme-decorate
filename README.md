@@ -1,4 +1,11 @@
 # SVG Generator
+![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Hello+%21&fontColor=%23ffea00&backgroundColor=%23000000&fontSize=70&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786&type=stroke
+)
+
+![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&&width=850&text=Hello+%21&fontColor=%23ffffff&backgroundColor=%23FFFFFF&fontSize=70&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786&type=gradient
+)
+
+
 
 SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 맞춤형 SVG 이미지를 생성해주는 웹 애플리케이션입니다. 웹 디자이너, 개발자, 마케터 등 다양한 사용자가 손쉽게 원하는 SVG 이미지를 생성하고 공유할 수 있습니다.
 
