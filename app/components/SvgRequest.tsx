@@ -1,36 +1,42 @@
 import { useState } from "react";
+import Image from "next/image";
 
 export default function SvgRequest() {
   const [height, setHeight] = useState("250");
-  const [width, setWidth] = useState("");
+  const [width, setWidth] = useState("850");
   const [text, setText] = useState("문구입력");
-  const [fontColor, setFontColor] = useState("#000000");
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const [fontColor, setFontColor] = useState("#ffffff");
+  const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fontSize, setFontSize] = useState("70");
   const [type, setType] = useState("rectangle");
   const [svgUrl, setSvgUrl] = useState<string | null>(null);
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [gradientColor1, setGradientColor1] = useState("#C6FFDD");
   const [gradientColor2, setGradientColor2] = useState("#FBD786");
+  const [useGradient, setUseGradient] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const requestBody = {
+      height,
+      width,
+      text,
+      fontColor,
+      fontSize,
+      type,
+
+      ...(useGradient
+        ? { gradientColors: [gradientColor1, gradientColor2] }
+        : { backgroundColor }),
+    };
 
     const response = await fetch("/api/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        height,
-        width,
-        text,
-        fontColor,
-        backgroundColor,
-        fontSize,
-        gradientColors: [gradientColor1, gradientColor2],
-        type,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     if (response.ok) {
@@ -41,23 +47,25 @@ export default function SvgRequest() {
 
   const generateUrl = () => {
     const baseUrl = window.location.origin;
-    const query = new URLSearchParams({
+    const queryParams: any = {
       height,
       width,
       text,
       fontColor,
-      backgroundColor,
       fontSize,
-      gradientColor1,
-      gradientColor2,
       type,
-    }).toString();
+      ...(useGradient
+        ? { gradientColor1, gradientColor2 }
+        : { backgroundColor }),
+    };
+
+    const query = new URLSearchParams(queryParams).toString();
     const url = `${baseUrl}/api/get?${query}`;
     setGeneratedUrl(url);
   };
 
   return (
-    <div className="min-h-screen flex flex-wrap items-start justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-wrap items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full custom-width">
         <h1 className="text-2xl font-bold mb-6 text-center">SVG Generator</h1>
         <form onSubmit={handleSubmit}>
@@ -94,7 +102,7 @@ export default function SvgRequest() {
             />
           </div>
 
-          <div className="flex gap-16">
+          <div>
             <div className="mb-4">
               <label className="block text-gray-700">Font Color:</label>
               <input
@@ -148,11 +156,21 @@ export default function SvgRequest() {
             >
               <option value="rectangle">Rectangle</option>
               <option value="stroke">Stroke</option>
-              <option value="gradient">Gradient</option>
+              <option value="circle">Circle</option>
             </select>
           </div>
 
-          {type === "gradient" && (
+          <div className="mb-4">
+            <label className="block text-gray-700">Use Gradient:</label>
+            <input
+              type="checkbox"
+              checked={useGradient}
+              onChange={() => setUseGradient(!useGradient)}
+              className="border rounded-lg"
+            />
+          </div>
+
+          {useGradient && (
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">Gradient Color 1:</label>
@@ -205,25 +223,30 @@ export default function SvgRequest() {
       </div>
 
       {generatedUrl && (
-        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+        <div
+          className="mt-4 bg-gray-100 rounded-lg"
+          style={{ width: "850px", wordBreak: "break-word" }}
+        >
           <h2 className="text-lg font-semibold">Generated URL:</h2>
           <a
             href={generatedUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 underline"
+            className="text-blue-500 underline break-all"
+            style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
           >
             {generatedUrl}
           </a>
         </div>
       )}
       {svgUrl && (
-        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+        <div className="mt-4 bg-gray-100 rounded-lg">
           <h2 className="text-lg font-semibold">Generated SVG:</h2>
-          <img
+          <Image
             src={svgUrl}
             alt="Generated SVG"
-            style={{ width: `${width}px` }}
+            width={Number(width)}
+            height={Number(height)}
           />
         </div>
       )}

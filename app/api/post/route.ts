@@ -2,7 +2,8 @@
 
 
 
-import GradientSvg from '@/app/components/GradientSvg';
+import CircleSvg from '@/app/components/CircleSvg';
+import RectangleSvg from '@/app/components/RectangleSvg';
 import StrokeSvg from '@/app/components/StrokeSvg';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -10,19 +11,18 @@ export async function POST(req: NextRequest) {
   const { height, width, text, fontColor, backgroundColor, fontSize, gradientColors, type } = await req.json();
 
   let svg;
-   if (type === "stroke") {
-    svg = StrokeSvg(width, height, backgroundColor, fontColor, text, fontSize);
+  if (type === "stroke") {
+    svg = StrokeSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
   } 
-  else if (type === "gradient") {
-    svg = GradientSvg(width, height, gradientColors, fontColor, text, fontSize);
+  else if (type === "circle") {
+    svg = CircleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
   } 
-  else {
-    svg = `
-      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="${backgroundColor}" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" fill="${fontColor}">${text}</text>
-      </svg>
-    `;
+  else if (type === "rectangle") {
+    svg = RectangleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
+  }
+
+  if (!svg) {
+    return NextResponse.json({ error: "SVG generation failed" }, { status: 400 });
   }
 
   const base64Svg = Buffer.from(svg).toString('base64');
