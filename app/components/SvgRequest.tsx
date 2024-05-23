@@ -100,6 +100,7 @@ export default function SvgRequest() {
               <option value="stroke">Stroke</option>
               <option value="circle">Circle</option>
               <option value="fadein">FadeIn</option>
+              <option value="star">Star</option>
             </select>
           </div>
 
