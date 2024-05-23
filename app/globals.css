@@ -12,5 +12,5 @@ body {
 }
 
 .custom-width {
-  width: 850px;
+  max-width: 850px;
 }

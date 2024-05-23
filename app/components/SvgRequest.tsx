@@ -15,6 +15,7 @@ export default function SvgRequest() {
   const [gradientColor2, setGradientColor2] = useState("#FBD786");
   const [useGradient, setUseGradient] = useState(false);
   const [fontWeight, setFontWeight] = useState("800");
+  const [copySuccess, setCopySuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,6 +67,21 @@ export default function SvgRequest() {
     const query = new URLSearchParams(queryParams).toString();
     const url = `${baseUrl}/api/get?${query}`;
     setGeneratedUrl(url);
+  };
+
+  const copyToClipboard = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (generatedUrl) {
+      try {
+        await navigator.clipboard.writeText(generatedUrl);
+        setCopySuccess("복사되었습니다!");
+        setTimeout(() => setCopySuccess(""), 2000);
+      } catch (err) {
+        setCopySuccess("복사에 실패했습니다.");
+        setTimeout(() => setCopySuccess(""), 2000);
+      }
+    }
   };
 
   return (
@@ -248,14 +264,16 @@ export default function SvgRequest() {
           >
             <h2 className="text-lg font-semibold">Generated URL</h2>
             <a
-              href={generatedUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={copyToClipboard}
               className="text-blue-500 underline break-all"
               style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
             >
               {generatedUrl}
             </a>
+            {copySuccess && (
+              <div className="text-black-500 mt-2">{copySuccess}</div>
+            )}
           </div>
         )}
         {svgUrl && (
