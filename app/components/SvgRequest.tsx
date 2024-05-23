@@ -85,8 +85,8 @@ export default function SvgRequest() {
   };
 
   return (
-    <div className="min-h-screen flex gap-8 flex-wrap items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full custom-width">
+    <div className="custom-min-width min-h-screen flex gap-8 flex-wrap items-center justify-center bg-gray-100">
+      <div className="bg-white p-3 rounded-lg shadow-lg w-full custom-max-width">
         <h1 className="text-2xl font-bold mb-6 text-center">SVG Generator</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -103,30 +103,6 @@ export default function SvgRequest() {
             </select>
           </div>
 
-          <div className="flex gap-5">
-            <div className="mb-4">
-              <label className="block text-gray-700">Width</label>
-              <input
-                type="number"
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg"
-                placeholder="Enter width"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-700">Height</label>
-              <input
-                type="number"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg"
-                placeholder="Enter height"
-              />
-            </div>
-          </div>
-
           <div className="mb-4">
             <label className="block text-gray-700">Text</label>
             <input
@@ -139,7 +115,31 @@ export default function SvgRequest() {
           </div>
 
           <div className="flex gap-5">
-            <div className="mb-4">
+            <div className="flex-1 mb-4">
+              <label className="block text-gray-700">Width</label>
+              <input
+                type="number"
+                value={width}
+                onChange={(e) => setWidth(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter width"
+              />
+            </div>
+
+            <div className="flex-1 mb-4">
+              <label className="block text-gray-700">Height</label>
+              <input
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter height"
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-5">
+            <div className="flex-1 mb-4">
               <label className="block text-gray-700">Font Size</label>
               <input
                 type="number"
@@ -150,7 +150,7 @@ export default function SvgRequest() {
               />
             </div>
 
-            <div className="mb-4">
+            <div className="flex-1 mb-4">
               <label className="block text-gray-700">Font Weight</label>
               <input
                 value={fontWeight}
@@ -161,42 +161,43 @@ export default function SvgRequest() {
           </div>
 
           <div className="flex gap-5">
-            <div className="mb-4">
+            <div className="flex-1 mb-4">
               <label className="block text-gray-700">Font Color</label>
               <input
                 type="color"
                 value={fontColor}
                 onChange={(e) => setFontColor(e.target.value)}
-                className="border rounded-lg"
+                className="border-none bg-transparent rounded-lg"
               />
               <input
                 type="text"
                 value={fontColor}
                 onChange={(e) => setFontColor(e.target.value)}
-                className="ml-4 px-3 py-2 border rounded-lg"
+                className="w-full  px-3 py-2 border rounded-lg"
                 placeholder="#000000"
               />
             </div>
-            <div className="mb-4">
+
+            <div className="flex-1 mb-4">
               <label className="block text-gray-700">Background Color</label>
               <input
                 type="color"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-                className="border rounded-lg"
+                className="border-none bg-transparent rounded-lg"
               />
               <input
                 type="text"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-                className="ml-4 px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg"
                 placeholder="#FFFFFF"
               />
             </div>
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Use Gradient:</label>
+            <label className="block text-gray-700">Use Gradient</label>
             <input
               type="checkbox"
               checked={useGradient}
@@ -207,35 +208,35 @@ export default function SvgRequest() {
 
           {useGradient && (
             <div className="flex gap-5">
-              <div className="mb-4">
+              <div className="flex-1 mb-4">
                 <label className="block text-gray-700">Gradient Color 1</label>
                 <input
                   type="color"
                   value={gradientColor1}
                   onChange={(e) => setGradientColor1(e.target.value)}
-                  className="border rounded-lg"
+                  className="border-none bg-transparent rounded-lg"
                 />
                 <input
                   type="text"
                   value={gradientColor1}
                   onChange={(e) => setGradientColor1(e.target.value)}
-                  className="ml-4 px-3 py-2 border rounded-lg"
+                  className="w-full px-3 py-2 border rounded-lg"
                   placeholder="#C6FFDD"
                 />
               </div>
-              <div className="mb-4">
+              <div className="flex-1 mb-4">
                 <label className="block text-gray-700">Gradient Color 2</label>
                 <input
                   type="color"
                   value={gradientColor2}
                   onChange={(e) => setGradientColor2(e.target.value)}
-                  className="border rounded-lg"
+                  className="border-none bg-transparent rounded-lg"
                 />
                 <input
                   type="text"
                   value={gradientColor2}
                   onChange={(e) => setGradientColor2(e.target.value)}
-                  className="ml-4 px-3 py-2 border rounded-lg"
+                  className="w-full px-3 py-2 border rounded-lg"
                   placeholder="#FBD786"
                 />
               </div>
@@ -258,10 +259,7 @@ export default function SvgRequest() {
       </div>
       <div className="flex flex-col">
         {generatedUrl && (
-          <div
-            className="mt-4 bg-gray-100 rounded-lg"
-            style={{ width: "850px", wordBreak: "break-word" }}
-          >
+          <div className="mt-4 bg-gray-100 rounded-lg custom-max-width">
             <h2 className="text-lg font-semibold">Generated URL</h2>
             <a
               href="#"
