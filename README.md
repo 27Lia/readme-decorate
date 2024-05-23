@@ -1,9 +1,7 @@
 # SVG Generator
-![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Hello+%21&fontColor=%23ffea00&backgroundColor=%23000000&fontSize=70&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786&type=stroke
-)
+![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Hello+%21&fontColor=%23ffffff&fontSize=70&type=circle&backgroundColor=%23fb5050)
 
-![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&&width=850&text=Hello+%21&fontColor=%23ffffff&backgroundColor=%23FFFFFF&fontSize=70&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786&type=gradient
-)
+![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Hello+%21&fontColor=%23ffffff&fontSize=70&type=stroke&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786)
 
 
 
