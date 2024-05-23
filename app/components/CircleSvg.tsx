@@ -6,10 +6,11 @@ export default function CircleSvg(
   text: string = "",
   fontSize: string = "",
   gradientColors: string[] = ["", ""],
+  fontWeight: string = "",
   snowColor: string = "white",
   snowRadius: string = "5",
   fallDuration: string = "3s",
-  snowflakeCount: number = 20
+  snowflakeCount: number = 18
 ): string {
   const snowflakes = Array.from({ length: snowflakeCount })
     .map((_, i) => {
@@ -65,7 +66,7 @@ export default function CircleSvg(
           }
         </style>
         <rect width="100%" height="100%" fill="${fillColor}" />
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" fill="${fontColor}">${text}</text>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" fill="${fontColor}" font-weight="${fontWeight}">${text}</text>
         ${snowflakes}
       </svg>
     `;

@@ -5,7 +5,8 @@ export default function RectangleSvg(
   fontColor: string = "",
   text: string = "",
   fontSize: string = "",
-  gradientColors: string[] = ["", ""]
+  gradientColors: string[] = ["", ""],
+  fontWeight: string = ""
 ): string {
   const gradientDef =
     gradientColors[0] && gradientColors[1]
@@ -26,7 +27,7 @@ export default function RectangleSvg(
       <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
       ${gradientDef} 
         <rect width="100%" height="100%" fill="${fillColor}" />
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" fill="${fontColor}">${text}</text>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" fill="${fontColor}" font-weight="${fontWeight}">${text}</text>
         </svg>
     `;
   return svg;

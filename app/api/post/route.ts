@@ -1,26 +1,27 @@
 // app/api/post/route.ts
 
-
-
 import CircleSvg from '@/app/components/CircleSvg';
+import FadeInSvg from '@/app/components/FadeInSvg';
 import RectangleSvg from '@/app/components/RectangleSvg';
 import StrokeSvg from '@/app/components/StrokeSvg';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-  const { height, width, text, fontColor, backgroundColor, fontSize, gradientColors, type } = await req.json();
+  const { height, width, text, fontColor, backgroundColor, fontSize, gradientColors, type,fontWeight } = await req.json();
 
   let svg;
   if (type === "stroke") {
-    svg = StrokeSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
+    svg = StrokeSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   } 
   else if (type === "circle") {
-    svg = CircleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
+    svg = CircleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   } 
   else if (type === "rectangle") {
-    svg = RectangleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors);
+    svg = RectangleSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   }
-
+  else if (type === "fadein") {
+    svg = FadeInSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
+  }
   if (!svg) {
     return NextResponse.json({ error: "SVG generation failed" }, { status: 400 });
   }

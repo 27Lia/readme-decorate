@@ -5,7 +5,8 @@ export default function StrokeSvg(
   fontColor: string = "",
   text: string = "",
   fontSize: string = "",
-  gradientColors: string[] = ["", ""]
+  gradientColors: string[] = ["", ""],
+  fontWeight: string = ""
 ): string {
   const textLength = text.length * 20;
 
@@ -55,7 +56,7 @@ export default function StrokeSvg(
         
       </style>
       <rect width="100%" height="100%" fill="${fillColor}" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" class="text-ani">${text}</text>
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="${fontSize}" class="text-ani" font-weight="${fontWeight}">${text}</text>
     </svg>
   `;
   return svg;

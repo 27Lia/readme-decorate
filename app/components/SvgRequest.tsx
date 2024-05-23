@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function SvgRequest() {
   const [height, setHeight] = useState("250");
   const [width, setWidth] = useState("850");
-  const [text, setText] = useState("문구입력");
+  const [text, setText] = useState("Hello");
   const [fontColor, setFontColor] = useState("#ffffff");
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fontSize, setFontSize] = useState("70");
@@ -14,6 +14,7 @@ export default function SvgRequest() {
   const [gradientColor1, setGradientColor1] = useState("#C6FFDD");
   const [gradientColor2, setGradientColor2] = useState("#FBD786");
   const [useGradient, setUseGradient] = useState(false);
+  const [fontWeight, setFontWeight] = useState("800");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ export default function SvgRequest() {
       fontColor,
       fontSize,
       type,
+      fontWeight,
 
       ...(useGradient
         ? { gradientColors: [gradientColor1, gradientColor2] }
@@ -54,6 +56,8 @@ export default function SvgRequest() {
       fontColor,
       fontSize,
       type,
+      fontWeight,
+
       ...(useGradient
         ? { gradientColor1, gradientColor2 }
         : { backgroundColor }),
@@ -65,34 +69,50 @@ export default function SvgRequest() {
   };
 
   return (
-    <div className="min-h-screen flex flex-wrap items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex gap-8 flex-wrap items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full custom-width">
         <h1 className="text-2xl font-bold mb-6 text-center">SVG Generator</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700">Height:</label>
-            <input
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+            <label className="block text-gray-700">Type</label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg"
-              placeholder="Enter height"
-            />
+            >
+              <option value="rectangle">Rectangle</option>
+              <option value="stroke">Stroke</option>
+              <option value="circle">Circle</option>
+              <option value="fadein">FadeIn</option>
+            </select>
+          </div>
+
+          <div className="flex gap-5">
+            <div className="mb-4">
+              <label className="block text-gray-700">Width</label>
+              <input
+                type="number"
+                value={width}
+                onChange={(e) => setWidth(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter width"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700">Height</label>
+              <input
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter height"
+              />
+            </div>
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Width:</label>
-            <input
-              type="number"
-              value={width}
-              onChange={(e) => setWidth(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-              placeholder="Enter width"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700">Text:</label>
+            <label className="block text-gray-700">Text</label>
             <input
               type="text"
               value={text}
@@ -102,9 +122,31 @@ export default function SvgRequest() {
             />
           </div>
 
-          <div>
+          <div className="flex gap-5">
             <div className="mb-4">
-              <label className="block text-gray-700">Font Color:</label>
+              <label className="block text-gray-700">Font Size</label>
+              <input
+                type="number"
+                value={fontSize}
+                onChange={(e) => setFontSize(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter font size"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700">Font Weight</label>
+              <input
+                value={fontWeight}
+                onChange={(e) => setFontWeight(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-5">
+            <div className="mb-4">
+              <label className="block text-gray-700">Font Color</label>
               <input
                 type="color"
                 value={fontColor}
@@ -120,7 +162,7 @@ export default function SvgRequest() {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Background Color:</label>
+              <label className="block text-gray-700">Background Color</label>
               <input
                 type="color"
                 value={backgroundColor}
@@ -136,29 +178,6 @@ export default function SvgRequest() {
               />
             </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Font Size:</label>
-            <input
-              type="number"
-              value={fontSize}
-              onChange={(e) => setFontSize(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-              placeholder="Enter font size"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700">Type:</label>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-            >
-              <option value="rectangle">Rectangle</option>
-              <option value="stroke">Stroke</option>
-              <option value="circle">Circle</option>
-            </select>
-          </div>
 
           <div className="mb-4">
             <label className="block text-gray-700">Use Gradient:</label>
@@ -171,9 +190,9 @@ export default function SvgRequest() {
           </div>
 
           {useGradient && (
-            <>
+            <div className="flex gap-5">
               <div className="mb-4">
-                <label className="block text-gray-700">Gradient Color 1:</label>
+                <label className="block text-gray-700">Gradient Color 1</label>
                 <input
                   type="color"
                   value={gradientColor1}
@@ -189,7 +208,7 @@ export default function SvgRequest() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Gradient Color 2:</label>
+                <label className="block text-gray-700">Gradient Color 2</label>
                 <input
                   type="color"
                   value={gradientColor2}
@@ -204,7 +223,7 @@ export default function SvgRequest() {
                   placeholder="#FBD786"
                 />
               </div>
-            </>
+            </div>
           )}
 
           <button
@@ -221,35 +240,36 @@ export default function SvgRequest() {
           Generate URL
         </button>
       </div>
-
-      {generatedUrl && (
-        <div
-          className="mt-4 bg-gray-100 rounded-lg"
-          style={{ width: "850px", wordBreak: "break-word" }}
-        >
-          <h2 className="text-lg font-semibold">Generated URL:</h2>
-          <a
-            href={generatedUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline break-all"
-            style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+      <div className="flex flex-col">
+        {generatedUrl && (
+          <div
+            className="mt-4 bg-gray-100 rounded-lg"
+            style={{ width: "850px", wordBreak: "break-word" }}
           >
-            {generatedUrl}
-          </a>
-        </div>
-      )}
-      {svgUrl && (
-        <div className="mt-4 bg-gray-100 rounded-lg">
-          <h2 className="text-lg font-semibold">Generated SVG:</h2>
-          <Image
-            src={svgUrl}
-            alt="Generated SVG"
-            width={Number(width)}
-            height={Number(height)}
-          />
-        </div>
-      )}
+            <h2 className="text-lg font-semibold">Generated URL</h2>
+            <a
+              href={generatedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline break-all"
+              style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+            >
+              {generatedUrl}
+            </a>
+          </div>
+        )}
+        {svgUrl && (
+          <div className="mt-4 bg-gray-100 rounded-lg">
+            <h2 className="text-lg font-semibold">Generated SVG</h2>
+            <Image
+              src={svgUrl}
+              alt="Generated SVG"
+              width={Number(width)}
+              height={Number(height)}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
