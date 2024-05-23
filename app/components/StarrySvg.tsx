@@ -18,11 +18,11 @@ export default function StarrySvg(
       const delay = Math.random() * -parseFloat(blinkDuration);
       const opacity = Math.random();
       return `
-          <circle 
-            cx="${posX}%" 
-            cy="${posY}%" 
-            r="1.2" 
-            fill="${starColor}" 
+          <circle
+            cx="${posX}%"
+            cy="${posY}%"
+            r="1.2"
+            fill="${starColor}"
             style="animation: blink-ani ${blinkDuration} linear infinite; animation-delay: ${delay}s; opacity: ${opacity};"
           />
         `;
