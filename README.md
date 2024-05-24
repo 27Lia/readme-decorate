@@ -1,6 +1,6 @@
 # SVG Generator
 
-![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Frontend&fontColor=%23ffffff&fontSize=70&type=stroke&fontWeight=800&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786)
+![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Hello&fontColor=%23000000&fontSize=70&type=wave&fontWeight=800&backgroundColor=%231f1f1f)
 
 ![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Star&fontColor=%23ffffff&fontSize=70&type=star&fontWeight=800&gradientColor1=%23A1C4FD&gradientColor2=%23FFDEE9)
 
