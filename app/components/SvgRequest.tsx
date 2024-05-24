@@ -87,9 +87,7 @@ export default function SvgRequest() {
   return (
     <div className="custom-min-width min-h-screen flex gap-8 flex-wrap items-center justify-center bg-gray-100">
       <div className="bg-white p-3 rounded-lg shadow-lg w-full custom-max-width">
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          SVG Gdddenerator
-        </h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">SVG Generator</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Type</label>
