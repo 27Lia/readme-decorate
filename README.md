@@ -2,14 +2,11 @@
 
 ![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Frontend&fontColor=%23ffffff&fontSize=70&type=stroke&fontWeight=800&gradientColor1=%23C6FFDD&gradientColor2=%23FBD786)
 
-
 ![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Star&fontColor=%23ffffff&fontSize=70&type=star&fontWeight=800&gradientColor1=%23A1C4FD&gradientColor2=%23FFDEE9)
-
 
 ![SVG Example](https://readme-decorate.vercel.app/api/get?height=250&width=850&text=Circle+%21&fontColor=%23ffffff&fontSize=70&type=circle&fontWeight=800&backgroundColor=%23FF6347)
 
-
-SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 맞춤형 SVG 이미지를 생성해주는 웹 애플리케이션입니다. 웹 디자이너, 개발자, 마케터 등 다양한 사용자가 손쉽게 원하는 SVG 이미지를 생성하고 공유할 수 있습니다.
+SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 맞춤형 SVG 이미지를 생성해주는 웹 서비스입니다. 웹 디자이너, 개발자, 마케터 등 다양한 사용자가 손쉽게 원하는 SVG 이미지를 생성하고 공유할 수 있습니다.
 
 ## 주요 기능
 
@@ -28,7 +25,7 @@ SVG Generator는 사용자가 입력한 다양한 파라미터를 기반으로 �
 6. **스타일 선택:** 이미지의 스타일을 선택합니다 (사각형, 스트로크, 그라디언트).
 7. **그라디언트 색상 설정:** 그라디언트 스타일을 선택한 경우, 두 가지 그라디언트 색상을 설정합니다.
 8. **SVG 생성:** 'Generate SVG' 버튼을 눌러 SVG 이미지를 생성합니다.
-9. **URL 생성:** 'Generate URL' 버튼을 눌러 생성된 SVG 이미지의 URL을 만듭니다.
+9. **URL 생성:** 'Generate URL' 버튼을 눌러 생성된 SVG 이미지의 URL을 클릭하여 복사 후 사용될 곳에 붙여넣기합니다.
 
 ---
 
