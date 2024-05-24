@@ -7,7 +7,7 @@ export default function CircleSvg(
   fontSize: string = "",
   gradientColors: string[] = ["", ""],
   fontWeight: string = "",
-  snowColor: string = "white",
+  snowColor: string = "#ffffff",
   snowRadius: string = "5",
   fallDuration: string = "3s",
   snowflakeCount: number = 18

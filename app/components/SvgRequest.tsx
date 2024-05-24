@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function SvgRequest() {
   const [height, setHeight] = useState("250");
   const [width, setWidth] = useState("850");
-  const [text, setText] = useState("Hello");
+  const [text, setText] = useState("");
   const [fontColor, setFontColor] = useState("#ffffff");
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fontSize, setFontSize] = useState("70");
