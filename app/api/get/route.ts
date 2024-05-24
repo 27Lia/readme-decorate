@@ -5,6 +5,7 @@ import FadeInSvg from '@/app/components/FadeInSvg';
 import RectangleSvg from '@/app/components/RectangleSvg';
 import StarrySvg from '@/app/components/StarrySvg';
 import StrokeSvg from '@/app/components/StrokeSvg';
+import WaveSvg from '@/app/components/WavSvg';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -35,6 +36,9 @@ export async function GET(req: NextRequest) {
   }
   else if (type === "star") {
     svg = StarrySvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
+  }
+  else if (type === "wave") {
+    svg = WaveSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   }
     return new NextResponse(svg, {
       headers: {
