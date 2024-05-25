@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "formik": "^2.4.6",
     "micro-cors": "^0.1.1",
     "next": "^14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/micro-cors": "^0.1.5",

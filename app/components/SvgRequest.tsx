@@ -1,67 +1,57 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
+import { useForm, Controller } from "react-hook-form";
 
 export default function SvgRequest() {
-  const [height, setHeight] = useState("250");
-  const [width, setWidth] = useState("850");
-  const [text, setText] = useState("");
-  const [fontColor, setFontColor] = useState("#ffffff");
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
-  const [fontSize, setFontSize] = useState("70");
-  const [type, setType] = useState("rectangle");
+  const {
+    control,
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [svgUrl, setSvgUrl] = useState<string | null>(null);
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
-  const [gradientColor1, setGradientColor1] = useState("#C6FFDD");
-  const [gradientColor2, setGradientColor2] = useState("#FBD786");
-  const [useGradient, setUseGradient] = useState(false);
-  const [fontWeight, setFontWeight] = useState("800");
   const [copySuccess, setCopySuccess] = useState("");
+  const [useGradient, setUseGradient] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(
+    async (data: any) => {
+      const requestBody = {
+        ...data,
+        fontSize: `${data.fontSize}px`,
+        ...(useGradient
+          ? { gradientColors: [data.gradientColor1, data.gradientColor2] }
+          : { backgroundColor: data.backgroundColor }),
+      };
 
-    const requestBody = {
-      height,
-      width,
-      text,
-      fontColor,
-      fontSize,
-      type,
-      fontWeight,
+      const response = await fetch("/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-      ...(useGradient
-        ? { gradientColors: [gradientColor1, gradientColor2] }
-        : { backgroundColor }),
-    };
-
-    const response = await fetch("/api/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
-
-    if (response.ok) {
-      const { url } = await response.json();
-      setSvgUrl(url);
-    }
-  };
+      if (response.ok) {
+        const { url } = await response.json();
+        setSvgUrl(url);
+      }
+    },
+    [useGradient]
+  );
 
   const generateUrl = () => {
     const baseUrl = window.location.origin;
+    const data = watch();
     const queryParams: any = {
-      height,
-      width,
-      text,
-      fontColor,
-      fontSize,
-      type,
-      fontWeight,
-
+      ...data,
       ...(useGradient
-        ? { gradientColor1, gradientColor2 }
-        : { backgroundColor }),
+        ? {
+            gradientColor1: data.gradientColor1,
+            gradientColor2: data.gradientColor2,
+          }
+        : { backgroundColor: data.backgroundColor }),
     };
 
     const query = new URLSearchParams(queryParams).toString();
@@ -88,12 +78,11 @@ export default function SvgRequest() {
     <div className="custom-min-width min-h-screen flex gap-8 flex-wrap items-center justify-center bg-gray-100">
       <div className="bg-white p-3 rounded-lg shadow-lg w-full custom-max-width">
         <h1 className="text-2xl font-bold mb-6 text-center">SVG Generator</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label className="block text-gray-700">Type</label>
             <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
+              {...register("type", { required: true })}
               className="w-full px-3 py-2 border rounded-lg"
             >
               <option value="rectangle">Rectangle</option>
@@ -103,17 +92,31 @@ export default function SvgRequest() {
               <option value="fadein">FadeIn</option>
               <option value="star">Star</option>
             </select>
+            {errors.type && (
+              <div className="text-red-500 text-sm">Type is required</div>
+            )}
+            <p className="text-gray-600 mt-1 text-sm">
+              Select the shape of the SVG.
+            </p>
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700">Text</label>
             <input
               type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
+              defaultValue={"Hi"}
+              {...register("text", { required: "Text is required" })}
               className="w-full px-3 py-2 border rounded-lg"
               placeholder="Enter text"
             />
+            {errors.text && (
+              <div className="text-red-500 text-sm">
+                {errors.text.message as string}
+              </div>
+            )}
+            <p className="text-gray-600 mt-1 text-sm">
+              Enter the text to be displayed on the SVG.
+            </p>
           </div>
 
           <div className="flex gap-5">
@@ -121,22 +124,46 @@ export default function SvgRequest() {
               <label className="block text-gray-700">Width</label>
               <input
                 type="number"
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
+                defaultValue={"750"}
+                {...register("width", {
+                  required: "Width is required",
+                  valueAsNumber: true,
+                  min: 1,
+                })}
                 className="w-full px-3 py-2 border rounded-lg"
                 placeholder="Enter width"
               />
+              {errors.width && (
+                <div className="text-red-500 text-sm">
+                  {errors.width.message as string}
+                </div>
+              )}
+              <p className="text-gray-600 mt-1 text-sm">
+                Set the width of the SVG (in pixels).
+              </p>
             </div>
 
             <div className="flex-1 mb-4">
               <label className="block text-gray-700">Height</label>
               <input
                 type="number"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
+                defaultValue={"250"}
+                {...register("height", {
+                  required: "Height is required",
+                  valueAsNumber: true,
+                  min: 1,
+                })}
                 className="w-full px-3 py-2 border rounded-lg"
                 placeholder="Enter height"
               />
+              {errors.height && (
+                <div className="text-red-500 text-sm">
+                  {errors.height.message as string}
+                </div>
+              )}
+              <p className="text-gray-600 mt-1 text-sm">
+                Set the height of the SVG (in pixels).
+              </p>
             </div>
           </div>
 
@@ -145,102 +172,201 @@ export default function SvgRequest() {
               <label className="block text-gray-700">Font Size</label>
               <input
                 type="number"
-                value={fontSize}
-                onChange={(e) => setFontSize(e.target.value)}
+                defaultValue={"32"}
+                {...register("fontSize", {
+                  required: "Font size is required",
+                  valueAsNumber: true,
+                  min: 1,
+                })}
                 className="w-full px-3 py-2 border rounded-lg"
-                placeholder="Enter font size"
+                placeholder="Enter font size in px"
               />
+              {errors.fontSize && (
+                <div className="text-red-500 text-sm">
+                  {errors.fontSize.message as string}
+                </div>
+              )}
+              <p className="text-gray-600 mt-1 text-sm">
+                Set the font size of the text (in pixels).
+              </p>
             </div>
 
             <div className="flex-1 mb-4">
               <label className="block text-gray-700">Font Weight</label>
               <input
-                value={fontWeight}
-                onChange={(e) => setFontWeight(e.target.value)}
+                type="number"
+                defaultValue={"800"}
+                {...register("fontWeight", {
+                  required: "Font weight is required",
+                  valueAsNumber: true,
+                  min: 100,
+                  max: 900,
+                })}
                 className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter font weight (100-900)"
               />
+              {errors.fontWeight && (
+                <div className="text-red-500 text-sm">
+                  {errors.fontWeight.message as string}
+                </div>
+              )}
+              <p className="text-gray-600 mt-1 text-sm">
+                Set the font weight of the text (e.g., 400 for normal, 700 for
+                bold).
+              </p>
             </div>
           </div>
 
           <div className="flex gap-5">
             <div className="flex-1 mb-4">
               <label className="block text-gray-700">Font Color</label>
-              <input
-                type="color"
-                value={fontColor}
-                onChange={(e) => setFontColor(e.target.value)}
-                className="border-none bg-transparent rounded-lg"
+              <Controller
+                name="fontColor"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <input
+                      type="color"
+                      {...field}
+                      className="border-none bg-transparent rounded-lg"
+                    />
+                    <input
+                      type="text"
+                      defaultValue={"#000000"}
+                      {...field}
+                      className="w-full px-3 py-2 border rounded-lg"
+                      placeholder="#000000"
+                    />
+                  </>
+                )}
+                rules={{ required: "Font color is required" }}
               />
-              <input
-                type="text"
-                value={fontColor}
-                onChange={(e) => setFontColor(e.target.value)}
-                className="w-full  px-3 py-2 border rounded-lg"
-                placeholder="#000000"
-              />
+              {errors.fontColor && (
+                <div className="text-red-500 text-sm">
+                  {errors.fontColor.message as string}
+                </div>
+              )}
+              <p className="text-gray-600 mt-1 text-sm">
+                Set the color of the text.
+              </p>
             </div>
 
-            <div className="flex-1 mb-4">
-              <label className="block text-gray-700">Background Color</label>
-              <input
-                type="color"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                className="border-none bg-transparent rounded-lg"
-              />
-              <input
-                type="text"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg"
-                placeholder="#FFFFFF"
-              />
-            </div>
+            {!useGradient && (
+              <div className="flex-1 mb-4">
+                <label className="block text-gray-700">Background Color</label>
+
+                <Controller
+                  name="backgroundColor"
+                  control={control}
+                  render={({ field }) => (
+                    <>
+                      <input
+                        type="color"
+                        {...field}
+                        className="border-none bg-transparent rounded-lg"
+                      />
+                      <input
+                        type="text"
+                        {...field}
+                        className="w-full px-3 py-2 border rounded-lg"
+                        placeholder="#FFFFFF"
+                      />
+                    </>
+                  )}
+                  rules={{ required: "Background color is required" }}
+                />
+
+                {errors.backgroundColor && (
+                  <div className="text-red-500 text-sm">
+                    {errors.backgroundColor.message as string}
+                  </div>
+                )}
+                <p className="text-gray-600 mt-1 text-sm">
+                  Set the background color of the SVG.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700">Use Gradient</label>
             <input
               type="checkbox"
-              checked={useGradient}
-              onChange={() => setUseGradient(!useGradient)}
+              {...register("useGradient")}
               className="border rounded-lg"
+              onChange={(e) => setUseGradient(e.target.checked)}
             />
+            <p className="text-gray-600 mt-1 text-sm">
+              Check to use a gradient background.
+            </p>
           </div>
 
           {useGradient && (
             <div className="flex gap-5">
               <div className="flex-1 mb-4">
                 <label className="block text-gray-700">Gradient Color 1</label>
-                <input
-                  type="color"
-                  value={gradientColor1}
-                  onChange={(e) => setGradientColor1(e.target.value)}
-                  className="border-none bg-transparent rounded-lg"
+                <Controller
+                  name="gradientColor1"
+                  control={control}
+                  defaultValue={"#C6FFDD"}
+                  render={({ field }) => (
+                    <>
+                      <input
+                        type="color"
+                        {...field}
+                        className="border-none bg-transparent rounded-lg"
+                      />
+                      <input
+                        type="text"
+                        {...field}
+                        className="w-full px-3 py-2 border rounded-lg"
+                        placeholder="#000000"
+                      />
+                    </>
+                  )}
+                  rules={{ required: "Gradient color 1 is required" }}
                 />
-                <input
-                  type="text"
-                  value={gradientColor1}
-                  onChange={(e) => setGradientColor1(e.target.value)}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  placeholder="#C6FFDD"
-                />
+
+                {errors.gradientColor1 && (
+                  <div className="text-red-500 text-sm">
+                    {errors.gradientColor1.message as string}
+                  </div>
+                )}
+                <p className="text-gray-600 mt-1 text-sm">
+                  Set the first color of the gradient.
+                </p>
               </div>
               <div className="flex-1 mb-4">
                 <label className="block text-gray-700">Gradient Color 2</label>
-                <input
-                  type="color"
-                  value={gradientColor2}
-                  onChange={(e) => setGradientColor2(e.target.value)}
-                  className="border-none bg-transparent rounded-lg"
-                />
-                <input
-                  type="text"
-                  value={gradientColor2}
-                  onChange={(e) => setGradientColor2(e.target.value)}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  placeholder="#FBD786"
-                />
+                <Controller
+                  name="gradientColor2"
+                  control={control}
+                  defaultValue="#FBD786"
+                  render={({ field }) => (
+                    <>
+                      <input
+                        type="color"
+                        {...field}
+                        className="border-none bg-transparent rounded-lg"
+                      />
+                      <input
+                        type="text"
+                        {...field}
+                        className="w-full px-3 py-2 border rounded-lg"
+                        placeholder="#FBD786"
+                      />
+                    </>
+                  )}
+                  rules={{ required: "Gradient color 2 is required" }}
+                />{" "}
+                {errors.gradientColor2 && (
+                  <div className="text-red-500 text-sm">
+                    {errors.gradientColor2.message as string}
+                  </div>
+                )}
+                <p className="text-gray-600 mt-1 text-sm">
+                  Set the second color of the gradient.
+                </p>
               </div>
             </div>
           )}
@@ -263,27 +389,33 @@ export default function SvgRequest() {
         {generatedUrl && (
           <div className="mt-4 bg-gray-100 rounded-lg custom-max-width">
             <h2 className="text-lg font-semibold">Generated URL</h2>
-            <a
-              href="#"
-              onClick={copyToClipboard}
-              className="text-blue-500 underline break-all"
-              style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-            >
-              {generatedUrl}
-            </a>
+            <div className="relative group">
+              <a
+                href="#"
+                onClick={copyToClipboard}
+                className="text-blue-500 underline break-all"
+                style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+              >
+                {generatedUrl}
+              </a>
+              <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2">
+                Click to copy! / 클릭하면 복사됩니다!
+              </div>
+            </div>
             {copySuccess && (
               <div className="text-black-500 mt-2">{copySuccess}</div>
             )}
           </div>
         )}
+
         {svgUrl && (
           <div className="mt-4 bg-gray-100 rounded-lg">
             <h2 className="text-lg font-semibold">Generated SVG</h2>
             <Image
               src={svgUrl}
               alt="Generated SVG"
-              width={Number(width)}
-              height={Number(height)}
+              width={Number(watch("width"))}
+              height={Number(watch("height"))}
             />
           </div>
         )}
