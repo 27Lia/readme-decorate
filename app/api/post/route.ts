@@ -3,6 +3,7 @@
 import CircleSvg from '@/app/components/CircleSvg';
 import FadeInSvg from '@/app/components/FadeInSvg';
 import RectangleSvg from '@/app/components/RectangleSvg';
+import ShadowSvg from '@/app/components/ShadowSvg';
 import StarrySvg from '@/app/components/StarrySvg';
 import StrokeSvg from '@/app/components/StrokeSvg';
 import WaveSvg from '@/app/components/WavSvg';
@@ -29,6 +30,9 @@ export async function POST(req: NextRequest) {
   }
   else if (type === "wave") {
     svg = WaveSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
+  }
+  else if (type === "shadow") {
+    svg = ShadowSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   }
   if (!svg) {
     return NextResponse.json({ error: "SVG generation failed" }, { status: 400 });

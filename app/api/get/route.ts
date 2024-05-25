@@ -3,6 +3,7 @@
 import CircleSvg from '@/app/components/CircleSvg';
 import FadeInSvg from '@/app/components/FadeInSvg';
 import RectangleSvg from '@/app/components/RectangleSvg';
+import ShadowSvg from '@/app/components/ShadowSvg';
 import StarrySvg from '@/app/components/StarrySvg';
 import StrokeSvg from '@/app/components/StrokeSvg';
 import WaveSvg from '@/app/components/WavSvg';
@@ -18,11 +19,10 @@ export async function GET(req: NextRequest) {
   const type = searchParams.get('type') || "rectangle";
   const width = searchParams.get('width') || "";
   const fontWeight = searchParams.get('fontWeight') || "";
-
   const gradientColors = [searchParams.get('gradientColor1') || "", searchParams.get('gradientColor2') || ""];
 
   let svg;
-
+  
   if (type === "stroke") {
     svg = StrokeSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   } else if (type === "circle") {
@@ -39,6 +39,9 @@ export async function GET(req: NextRequest) {
   }
   else if (type === "wave") {
     svg = WaveSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
+  }
+  else if (type === "shadow") {
+    svg = ShadowSvg(width, height, backgroundColor, fontColor, text, fontSize, gradientColors,fontWeight);
   }
     return new NextResponse(svg, {
       headers: {

@@ -34,7 +34,7 @@ export default function WaveSvg(
           0% { transform: rotate(-25deg); }
           100% { transform: rotate(25deg); }
         }
-        
+
       </style>
     `;
 
@@ -59,7 +59,7 @@ export default function WaveSvg(
   const svg = `
         <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
         ${animations}
-        ${gradientDef} 
+        ${gradientDef}
           <rect width="100%" height="100%" fill="${fillColor}" />
           ${textElements}
         </svg>

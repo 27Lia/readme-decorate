@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 
@@ -8,6 +8,8 @@ export default function SvgRequest() {
     register,
     watch,
     handleSubmit,
+    setValue,
+
     formState: { errors },
   } = useForm();
   const [svgUrl, setSvgUrl] = useState<string | null>(null);
@@ -15,11 +17,17 @@ export default function SvgRequest() {
   const [copySuccess, setCopySuccess] = useState("");
   const [useGradient, setUseGradient] = useState(false);
 
+  useEffect(() => {
+    if (!useGradient) {
+      setValue("gradientColor1", "");
+      setValue("gradientColor2", "");
+    }
+  }, [useGradient, setValue]);
+
   const onSubmit = useCallback(
     async (data: any) => {
       const requestBody = {
         ...data,
-        fontSize: `${data.fontSize}px`,
         ...(useGradient
           ? { gradientColors: [data.gradientColor1, data.gradientColor2] }
           : { backgroundColor: data.backgroundColor }),
@@ -46,19 +54,23 @@ export default function SvgRequest() {
     const data = watch();
     const queryParams: any = {
       ...data,
-      ...(useGradient
-        ? {
-            gradientColor1: data.gradientColor1,
-            gradientColor2: data.gradientColor2,
-          }
-        : { backgroundColor: data.backgroundColor }),
     };
+
+    if (useGradient) {
+      if (data.gradientColor1 && data.gradientColor2) {
+        queryParams.gradientColor1 = data.gradientColor1;
+        queryParams.gradientColor2 = data.gradientColor2;
+      }
+    } else {
+      if (data.backgroundColor) {
+        queryParams.backgroundColor = data.backgroundColor;
+      }
+    }
 
     const query = new URLSearchParams(queryParams).toString();
     const url = `${baseUrl}/api/get?${query}`;
     setGeneratedUrl(url);
   };
-
   const copyToClipboard = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -91,6 +103,7 @@ export default function SvgRequest() {
               <option value="circle">Circle</option>
               <option value="fadein">FadeIn</option>
               <option value="star">Star</option>
+              <option value="shadow">Shadow</option>
             </select>
             {errors.type && (
               <div className="text-red-500 text-sm">Type is required</div>
@@ -232,7 +245,6 @@ export default function SvgRequest() {
                     />
                     <input
                       type="text"
-                      defaultValue={"#000000"}
                       {...field}
                       className="w-full px-3 py-2 border rounded-lg"
                       placeholder="#000000"
@@ -308,7 +320,6 @@ export default function SvgRequest() {
                 <Controller
                   name="gradientColor1"
                   control={control}
-                  defaultValue={"#C6FFDD"}
                   render={({ field }) => (
                     <>
                       <input
@@ -341,7 +352,6 @@ export default function SvgRequest() {
                 <Controller
                   name="gradientColor2"
                   control={control}
-                  defaultValue="#FBD786"
                   render={({ field }) => (
                     <>
                       <input
@@ -377,27 +387,26 @@ export default function SvgRequest() {
           >
             Generate SVG
           </button>
+          <button
+            onClick={generateUrl}
+            className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 mt-4"
+          >
+            Generate URL
+          </button>
         </form>
-        <button
-          onClick={generateUrl}
-          className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 mt-4"
-        >
-          Generate URL
-        </button>
       </div>
       <div className="flex flex-col">
         {generatedUrl && (
           <div className="mt-4 bg-gray-100 rounded-lg custom-max-width">
             <h2 className="text-lg font-semibold">Generated URL</h2>
             <div className="relative group">
-              <a
-                href="#"
+              <div
                 onClick={copyToClipboard}
-                className="text-blue-500 underline break-all"
+                className="text-blue-500 underline break-all cursor-pointer"
                 style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
               >
                 {generatedUrl}
-              </a>
+              </div>
               <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2">
                 Click to copy! / 클릭하면 복사됩니다!
               </div>

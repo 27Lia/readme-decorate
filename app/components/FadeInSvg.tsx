@@ -60,7 +60,7 @@ export default function FadeInSvg(
                   width: 100%;
                 }
                 .typing-text {
-                  font-size: ${fontSize};
+                  font-size: ${fontSize}px;
                   color: ${fontColor};
                   font-weight: ${fontWeight};
                   white-space: nowrap;
