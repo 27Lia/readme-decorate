@@ -97,10 +97,11 @@ export default function SvgRequest() {
               {...register("type", { required: true })}
               className="w-full px-3 py-2 border rounded-lg"
             >
+              <option value="circle">Circle</option>
+              <option value="fadein">FadeIn</option>
               <option value="rectangle">Rectangle</option>
               <option value="wave">Wave</option>
               <option value="stroke">Stroke</option>
-              <option value="circle">Circle</option>
               <option value="fadein">FadeIn</option>
               <option value="star">Star</option>
               <option value="shadow">Shadow</option>
@@ -236,6 +237,7 @@ export default function SvgRequest() {
               <Controller
                 name="fontColor"
                 control={control}
+                defaultValue={"#000000"}
                 render={({ field }) => (
                   <>
                     <input
@@ -270,6 +272,7 @@ export default function SvgRequest() {
                 <Controller
                   name="backgroundColor"
                   control={control}
+                  defaultValue={"#c9c9c9"}
                   render={({ field }) => (
                     <>
                       <input
@@ -363,7 +366,7 @@ export default function SvgRequest() {
                         type="text"
                         {...field}
                         className="w-full px-3 py-2 border rounded-lg"
-                        placeholder="#FBD786"
+                        placeholder="#000000"
                       />
                     </>
                   )}
@@ -407,7 +410,7 @@ export default function SvgRequest() {
               >
                 {generatedUrl}
               </div>
-              <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2">
+              <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block bg-black text-white rounded py-1 px-2 text-lg">
                 Click to copy! / 클릭하면 복사됩니다!
               </div>
             </div>
