@@ -24,21 +24,20 @@ export default function ShadowSvg(
     gradientColors[0] && gradientColors[1] ? "url(#grad1)" : backgroundColor;
 
   const animations = `
-    <style>
+  <style>
         @keyframes pulse {
           0% {
-            text-shadow: 0px 0px 10px ${fontColor}, 0px 0px 20px ${fontColor}, 0px 0px 30px ${fontColor}, 0px 0px 40px ${fontColor}, 0px 0px 50px ${fontColor};
+            text-shadow: 0px 0px 5px ${fontColor}88, 0px 0px 10px ${fontColor}88, 0px 0px 15px ${fontColor}88, 0px 0px 20px ${fontColor}88, 0px 0px 25px ${fontColor}88;
           }
           50% {
-            text-shadow: 0px 0px 20px ${fontColor}, 0px 0px 30px ${fontColor}, 0px 0px 40px ${fontColor}, 0px 0px 50px ${fontColor}, 0px 0px 60px ${fontColor};
+            text-shadow: 0px 0px 10px ${fontColor}88, 0px 0px 15px ${fontColor}88, 0px 0px 20px ${fontColor}88, 0px 0px 25px ${fontColor}88, 0px 0px 30px ${fontColor}88;
           }
           100% {
-            text-shadow: 0px 0px 10px ${fontColor}, 0px 0px 20px ${fontColor}, 0px 0px 30px ${fontColor}, 0px 0px 40px ${fontColor}, 0px 0px 50px ${fontColor};
+            text-shadow: 0px 0px 5px ${fontColor}88, 0px 0px 10px ${fontColor}88, 0px 0px 15px ${fontColor}88, 0px 0px 20px ${fontColor}88, 0px 0px 25px ${fontColor}88;
           }
         }
       </style>
     `;
-
   const svg = `
       <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
         ${animations}

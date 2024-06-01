@@ -97,12 +97,11 @@ export default function SvgRequest() {
               {...register("type", { required: true })}
               className="w-full px-3 py-2 border rounded-lg"
             >
+              <option value="rectangle">Rectangle</option>
               <option value="circle">Circle</option>
               <option value="fadein">FadeIn</option>
-              <option value="rectangle">Rectangle</option>
               <option value="wave">Wave</option>
               <option value="stroke">Stroke</option>
-              <option value="fadein">FadeIn</option>
               <option value="star">Star</option>
               <option value="shadow">Shadow</option>
             </select>
