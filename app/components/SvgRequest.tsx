@@ -1,6 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
+type FormData = {
+  type: string;
+  text: string;
+  width: number;
+  height: number;
+  fontSize: number;
+  fontWeight: number;
+  fontColor: string;
+  backgroundColor?: string;
+  gradientColor1?: string;
+  gradientColor2?: string;
+};
 
 export default function SvgRequest() {
   const {
@@ -11,7 +24,7 @@ export default function SvgRequest() {
     setValue,
 
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
   const [svgUrl, setSvgUrl] = useState<string | null>(null);
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [copySuccess, setCopySuccess] = useState("");
@@ -24,7 +37,7 @@ export default function SvgRequest() {
     }
   }, [useGradient, setValue]);
 
-  const onSubmit = useCallback(
+  const onSubmit: SubmitHandler<FormData> = useCallback(
     async (data: any) => {
       const requestBody = {
         ...data,
@@ -52,7 +65,7 @@ export default function SvgRequest() {
   const generateUrl = () => {
     const baseUrl = window.location.origin;
     const data = watch();
-    const queryParams: any = {
+    const queryParams: Record<string, string | number | undefined> = {
       ...data,
     };
 
@@ -67,7 +80,9 @@ export default function SvgRequest() {
       }
     }
 
-    const query = new URLSearchParams(queryParams).toString();
+    const query = new URLSearchParams(
+      queryParams as Record<string, string>
+    ).toString();
     const url = `${baseUrl}/api/get?${query}`;
     setGeneratedUrl(url);
   };
