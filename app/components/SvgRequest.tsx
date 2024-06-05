@@ -13,7 +13,7 @@ type FormData = {
   backgroundColor?: string;
   gradientColor1?: string;
   gradientColor2?: string;
-  useGradient?: boolean;
+  useGradient: boolean;
 };
 
 export default function SvgRequest() {
@@ -23,9 +23,9 @@ export default function SvgRequest() {
     watch,
     handleSubmit,
     setValue,
-
     formState: { errors },
   } = useForm<FormData>();
+
   const [svgUrl, setSvgUrl] = useState<string | null>(null);
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [copySuccess, setCopySuccess] = useState("");
