@@ -13,6 +13,7 @@ type FormData = {
   backgroundColor?: string;
   gradientColor1?: string;
   gradientColor2?: string;
+  useGradient?: boolean;
 };
 
 export default function SvgRequest() {
@@ -65,7 +66,7 @@ export default function SvgRequest() {
   const generateUrl = () => {
     const baseUrl = window.location.origin;
     const data = watch();
-    const queryParams: Record<string, string | number | undefined> = {
+    const queryParams: Record<string, string | number | boolean | undefined> = {
       ...data,
     };
 
